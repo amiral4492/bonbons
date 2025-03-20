@@ -4,7 +4,7 @@ document.getElementById('buildingForm').addEventListener('submit', function(e) {
     const streetName = document.getElementById('streetName').value;
     const city = document.getElementById('city').value;
 
-    fetch('/buildings', {
+    fetch('https://bonbons-amirals-projects.vercel.app/buildings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ street_number: streetNumber, street_name: streetName, city: city })
