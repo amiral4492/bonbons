@@ -1,22 +1,30 @@
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
+const { createClient } = require('@supabase/supabase-js');
 const app = express();
-const db = new sqlite3.Database('./database.db');
+
+// Initialiser Supabase
+const supabaseUrl = 'https://votre-url.supabase.co'; // Remplacez par votre URL Supabase
+const supabaseKey = 'votre-cle-api'; // Remplacez par votre clé API
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 app.use(express.json());
 
 // Créer un bâtiment
-app.post('/buildings', (req, res) => {
+app.post('/buildings', async (req, res) => {
     const { street_number, street_name, city } = req.body;
-    db.run(`INSERT INTO Buildings (street_number, street_name, city) VALUES (?, ?, ?)`, [street_number, street_name, city], function(err) {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        res.json({ id: this.lastID });
-    });
+    const { data, error } = await supabase
+        .from('Buildings')
+        .insert([{ street_number, street_name, city }])
+        .select();
+
+    if (error) {
+        return res.status(500).json({ error: error.message });
+    }
+    res.json(data[0]);
 });
 
 // Démarrer le serveur
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
