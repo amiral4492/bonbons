@@ -1,0 +1,13 @@
+{
+  "name": "candy-manager",
+  "version": "1.0.0",
+  "description": "Application de gestion de pièces et de bonbons",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "@supabase/supabase-js": "^2.21.0"
+  }
+}
