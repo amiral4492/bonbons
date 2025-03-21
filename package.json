@@ -1,5 +1,5 @@
 {
-  "name": "candy-manager",
+  "name": "bonbons",
   "version": "1.0.0",
   "description": "Application de gestion de pièces et de bonbons",
   "main": "server.js",
