@@ -28,6 +28,9 @@ app.post('/buildings', async (req, res) => {
     if (error) {
         return res.status(500).json({ error: error.message });
     }
+    if (!data || data.length === 0) {
+        return res.status(500).json({ error: 'Aucune donnée renvoyée par Supabase' });
+    }
     res.json(data[0]);
 });
 
